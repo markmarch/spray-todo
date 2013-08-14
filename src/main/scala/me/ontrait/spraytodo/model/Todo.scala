@@ -14,7 +14,7 @@ object TodoDataStore {
 
   private[this] val all = {
     val tasks = List("get milk", "read book", "more coding", "learn how to drive")
-    val list = tasks.zipWithIndex.map{ case (task, index) => Todo(Some(index.toLong), task, task.length % 2 == 0)}
+    val list = tasks.zipWithIndex.map { case (task, index) ⇒ Todo(Some(index.toLong), task, task.length % 2 == 0) }
     ListBuffer.empty[Todo] ++ list
   }
 
@@ -30,12 +30,12 @@ object TodoDataStore {
   def find(id: Long): Option[Todo] = all.find(_.id == Some(id))
 
   def setDone(id: Long): Unit = find(id) match {
-    case Some(todo) => all -= todo; all += todo.copy(done = true)
-    case None => throw new IllegalArgumentException("Not found todo with id $id")
+    case Some(todo) ⇒ all -= todo; all += todo.copy(done = true)
+    case None       ⇒ throw new IllegalArgumentException("Not found todo with id $id")
   }
 
   def delete(id: Long): Option[Todo] = find(id) match {
-    case Some(todo) => all -= todo; Some(todo)
-    case _ => None
+    case Some(todo) ⇒ all -= todo; Some(todo)
+    case _          ⇒ None
   }
 }

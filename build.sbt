@@ -1,3 +1,5 @@
+import BuildSettings._
+
 name := "spray-todo"
 
 version := "1.0"
@@ -18,4 +20,4 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.0.13"
 )
 
-seq(Revolver.settings: _*)
+seq(sprayTodoSettings: _*)
