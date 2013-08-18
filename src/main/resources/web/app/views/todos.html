@@ -1,0 +1,20 @@
+<form name="todoForm" class="form-inline">
+  <legend>New Todo:</legend>
+  <input type="text" name="task" ng-model="task">
+  <button type="submit" class="btn" ng-click="create(task)">Create</button>
+</form>
+
+<table class="table">
+  <thead>
+    <th>done</th>
+    <th>task</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="todo in todos">
+      <td><input type="checkbox" ng-model="todo.done" ng-change="update(todo)"></td>
+      <td>{{todo.task}}</td>
+      <td><button class="btn btn-danger" ng-click="delete(todo.id)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

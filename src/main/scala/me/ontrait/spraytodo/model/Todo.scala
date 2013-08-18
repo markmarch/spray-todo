@@ -18,13 +18,19 @@ object TodoDataStore {
     ListBuffer.empty[Todo] ++ list
   }
 
-  def list: List[Todo] = all.to[List]
+  def list: List[Todo] = all.to[List].sortBy(_.id.getOrElse(0L) * -1L)
 
-  def add(todo: Todo): Todo = {
+  def add(todo: Todo): Long = {
     val maxId = if (all.isEmpty) 0L else { all.maxBy(_.id.getOrElse(0L)).id.getOrElse(0L) }
     val added = todo.copy(id = Some(maxId + 1L))
     all += added
-    added
+
+    added.id.get
+  }
+
+  def update(todo: Todo): Unit = todo.id.flatMap(find(_)) match {
+    case Some(t) ⇒ all -= t; all += todo
+    case _       ⇒ throw new IllegalArgumentException("Not found")
   }
 
   def find(id: Long): Option[Todo] = all.find(_.id == Some(id))

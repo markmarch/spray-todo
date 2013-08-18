@@ -30,9 +30,20 @@ trait SprayTodoService extends HttpService {
     } ~ post {
       path("") {
         entity(as[Todo]) { todo ⇒
-          complete {
-            Todos.add(todo)
+          Todos.add(todo)
+          complete(Created)
+        }
+      }
+    } ~ put {
+      path(LongNumber) { id ⇒
+        entity(as[Todo]) { todo ⇒
+          try {
+            Todos.update(todo)
+            complete(OK)
+          } catch {
+            case e: IllegalArgumentException ⇒ complete(BadRequest)
           }
+
         }
       }
     } ~ delete {
